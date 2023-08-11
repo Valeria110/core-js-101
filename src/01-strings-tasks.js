@@ -66,7 +66,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return value.replace('Hello, ', '').replace('!', '');
+  return value.slice(7, -1);
 }
 
 
@@ -231,17 +231,7 @@ function encodeToRot13(str) {
   const rot13 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
 
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  // let result = str.split('');
-  // result = result.map((el) => {
-  //   let newEl = '';
-  //   if (alphabet.includes(el)) {
-  //     newEl = rot13[alphabet.indexOf(el)];
-  //   } else {
-  //     newEl = el;
-  //   }
-  //   return newEl;
-  // });
-  // return result.join('');
+
   return str.split('').map((l) => {
     let letterInRot13 = '';
 
