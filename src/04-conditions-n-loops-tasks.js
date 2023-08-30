@@ -358,46 +358,32 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
+
+function isClosedBracket(char) {
+  return [')', '}', ']', '>'].indexOf(char) > -1;
+}
+
 function isBracketsBalanced(str) {
   const stack = [];
 
+  const bracketsPairs = {
+    ')': '(',
+    '}': '{',
+    ']': '[',
+    '>': '<',
+  };
+
   for (let i = 0; i < str.length; i += 1) {
-    const x = str[i];
+    const currentSymbol = str[i];
 
-    if (x === '(' || x === '[' || x === '{' || x === '<') {
-      stack.push(x);
-    }
-
-    if (stack.length === 0) return false;
-
-    let check;
-    switch (x) {
-      case ')':
-        check = stack.pop();
-        if (check === '{' || check === '[' || check === '<') return false;
-        break;
-
-      case '}':
-        check = stack.pop();
-        if (check === '(' || check === '[' || check === '<') return false;
-        break;
-
-      case ']':
-        check = stack.pop();
-        if (check === '(' || check === '{' || check === '<') return false;
-        break;
-
-      case '>':
-        check = stack.pop();
-        if (check === '(' || check === '{' || check === '[') return false;
-        break;
-
-      default:
-        break;
+    if (isClosedBracket(currentSymbol)) {
+      if (bracketsPairs[currentSymbol] !== stack.pop()) return false;
+    } else {
+      stack.push(currentSymbol);
     }
   }
 
-  return (stack.length === 0);
+  return stack.length === 0;
 }
 
 
